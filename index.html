@@ -11,6 +11,34 @@
 
     gtag('config', 'UA-156101954-1');
   </script>
+
+  <script>
+  $(function() {
+  			//On ajoute l ajax au clic sur les liens
+  			$('nav a.ajax').click(function(e) {
+  				$("#loading").show();
+  				href = $(this).attr("href");
+
+  				//On charge le contenu
+  				loadContent(href);
+
+  				// On ajoute la nouvelle url
+  				history.pushState('', 'New URL: '+href, href);
+
+  				//On bloc le href
+  				e.preventDefault();
+  			});
+
+  			//Gestion de l'historique (backward / forward)
+  			window.onpopstate = function(event) {
+  				$("#loading").show();
+  				console.log("pathname: "+location.pathname);
+  				loadContent(location.pathname);
+  			};
+
+  		});
+  </script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
